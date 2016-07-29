@@ -3,7 +3,6 @@ from datetime import datetime
 from pyqtgraph.Qt import QtGui, QtCore
 from streamUtils import *
 from parameters import *
-from BikeCadence import peakDetection
 from streamAccel import update_accel
 from streamLight import update_light
 from streamSound import update_sound
