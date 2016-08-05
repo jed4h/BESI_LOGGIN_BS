@@ -99,14 +99,17 @@ if __name__ == '__main__':
     except socket.gaierror, err:
         print "cannot resolve hostname: ", name, err
         
+    # create a mutual exclusion lock so only one process prints at a time
+    lock = multiprocessing.Lock()
     
+    # create a queue for m=communication - currently not used
     comm_queue = multiprocessing.Queue()
     # Create a process for each BeagleBone
     try:
         for i in range(numRelayStat):
             # create a new process for each relay station
             # use a separate queue for communicating with each process
-            streamingProcs.append(multiprocessing.Process(target = stream.stream_process, args=(comm_queue, ports[i], useAccel[i], useLight[i], useADC[i], ShimmerIDs, PLOT, fileLengthSec, fileLengthDay, DeploymentID, networkNum, i)))
+            streamingProcs.append(multiprocessing.Process(target = stream.stream_process, args=(comm_queue, ports[i], useAccel[i], useLight[i], useADC[i], ShimmerIDs, PLOT, fileLengthSec, fileLengthDay, DeploymentID, networkNum, i, lock)))
     except:
         print "Error reading config file: incorrect parameters for relay stations"
     
