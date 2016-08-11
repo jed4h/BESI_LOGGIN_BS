@@ -6,7 +6,7 @@ from datetime import datetime
 from parameters import *
 import struct
 
-def printRSstatus(line1 = None, line2 = None, line3 = None, offset = 0):
+def printRSstatus(line1 = None, line2 = None, line3 = None, line4 = None, offset = 0):
     if line1 != None:
         print('\x1b[{};1H'.format(offset + 1))
         print(line1)
@@ -18,6 +18,10 @@ def printRSstatus(line1 = None, line2 = None, line3 = None, offset = 0):
     if line3 != None:
         print('\x1b[{};1H'.format(offset + 3))
         print(line3)
+        
+    if line4 != None:
+        print('\x1b[{};1H'.format(offset + 4))
+        print(line4)
 
 # returns the average of value of data
 def moving_avg(data):
